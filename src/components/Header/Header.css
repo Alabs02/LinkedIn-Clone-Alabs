@@ -1,0 +1,9 @@
+/* .search {
+    width: 100%;
+} */
+
+@layer base {
+    .active-nav {
+        @apply self-end px-6 pb-0 border-b-2 border-gray-900;
+    }
+}
