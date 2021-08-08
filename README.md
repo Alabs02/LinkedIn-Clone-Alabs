@@ -30,4 +30,4 @@ Your app is ready to be deployed!
 
 
 ### Developed by alabson.inc
-["My Gmail account"](alabson.inc@gmail.com)
+[alabson.inc@gmail.com](gmail.com)
