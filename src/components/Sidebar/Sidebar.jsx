@@ -20,7 +20,7 @@ function Sidebar() {
                     <Avatar size={"h-24 w-24 overflow-hidden border-2 border-white"} src="https://th.bing.com/th/id/OIP.CVqHXuBDNjoG5ZnHJzPC9AHaEK?pid=ImgDet&rs=1" rounded={true} />
                 </div>
                 <div className="grid mt-16 card__body place-items-center">
-                    <h5 className="text-lg font-medium text-gray-800 transition-all cursor-pointer card__title hover:underline">Alabura Usman</h5>
+                    <h5 className="text-lg font-medium text-gray-800 transition-all cursor-pointer card__title hover:underline">Elon Musk</h5>
                     <p className="px-4 mt-2 mb-4 text-base leading-5 text-center text-gray-500 card__copy">
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tenetur distinctio corporis quia libero quas.
                     </p>

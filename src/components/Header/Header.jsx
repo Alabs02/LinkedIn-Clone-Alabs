@@ -3,8 +3,7 @@ import './Header.css';
 import HeaderBtn from '../HeaderBtn';
 
 // Icons
-import { ImSearch } from 'react-icons/im'
-import { ImHome3 } from 'react-icons/im'
+import { ImHome3, ImSearch } from 'react-icons/im'
 import { MdGroup } from 'react-icons/md';
 import { HiBriefcase } from 'react-icons/hi'
 import { AiFillMessage } from 'react-icons/ai';

@@ -1,0 +1,73 @@
+.pin-t {
+    top: 0;
+}
+  
+.pin-r {
+    right: 0;
+}
+  
+.pin-b {
+    bottom: 0;
+}
+  
+.pin-l {
+    left: 0;
+}
+  
+.pin-y {
+    top: 0;
+    bottom: 0;
+}
+  
+.pin-x {
+    right: 0;
+    left: 0;
+}
+  
+.pin {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.bg-smoke-darkest,
+.hover\:bg-smoke-darkest:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.bg-smoke-darker,
+.hover\:bg-smoke-darker:hover {
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.bg-smoke-dark,
+.hover\:bg-smoke-dark:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.bg-smoke,
+.hover\:bg-smoke:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-smoke-light,
+.hover\:bg-smoke-light:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.bg-smoke-lighter,
+.hover\:bg-smoke-lighter:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.bg-smoke-lightest,
+.hover\:bg-smoke-lightest:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.modal__lg {
+  width: 40%;
+}

@@ -1,0 +1,10 @@
+.search__btn {
+    top: 1.2px;
+    right: 40px;
+    padding: .5rem;
+}
+.search__btn:last-child {
+    top: 1.2px;
+    right: 1.6px;
+    padding: .6rem;
+}

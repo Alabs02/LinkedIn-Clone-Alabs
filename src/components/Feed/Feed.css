@@ -1,3 +1,15 @@
 .search {
     width: 100%;
 }
+
+.filter__divider {
+    width: 81%;
+}
+
+.filter__action {
+    width: 19%;
+}
+
+textarea {
+    resize: none;
+}
