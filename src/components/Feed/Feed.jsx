@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Avatar from '../Avatar';
 import PanelBtn from '../PanelBtn';
 import Post from '../Post';
@@ -16,15 +16,45 @@ import { IoLogoYoutube } from 'react-icons/io';
 import { IoDocumentText } from 'react-icons/io5';
 import { HiBriefcase } from 'react-icons/hi';
 import { TiChartBar } from 'react-icons/ti';
-import { RiMoreFill } from 'react-icons/ri';
+// import { RiMoreFill } from 'react-icons/ri';
 
+// Firebase
+import { db } from '../../firebaseConfig';
+import firebase from 'firebase'
 
 
 function Feed() {
+    const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
 
     const ref = React.createRef()
+
+    useEffect(() => {
+        const doc = db.collection('posts');
+        
+        doc.onSnapshot(docSnapshot => {
+            console.log('Received data', docSnapshot.docs);
+            setPosts(docSnapshot.docs.map((doc) => ({
+                id: doc.id,
+                data: doc.data(),
+                metaData: doc.metadata
+            })));
+        });
+    }, []);
+        
+
+    const sendPost = e => {
+        e.preventDefault();
+
+        db.collection('posts').add({
+            name: 'Elon Musk',
+            description: 'Celebrating tech',
+            message: input,
+            photoUrl: ``,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+    }
     
     return (
         <div className="w-full">
@@ -60,33 +90,36 @@ function Feed() {
                                         </div>
                                     </div>
 
-                                    <div className="w-full modal__content">
-                                        <textarea rows="4" placeholder="What do want to talk about?" className="w-full my-4 text-base font-light tracking-wide text-gray-600 border-0 rounded outline-none focus:border-white focus:outline-white"></textarea>
-                                        <div className="inline-block px-2 py-1 transition-colors rounded-md cursor-pointer hover:bg-blue-100">
-                                            <span className="antialiased font-medium tracking-wide text-blue-500">Add hashtag</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center justify-between w-full pt-4 modal__footer">
-                                        <div className="flex items-center">
-                                            <IconBtn Icon={BsCardImage} id={"card-image"} copy={"Add a photo"} />
-                                            <IconBtn Icon={IoLogoYoutube} id={"card-image"} copy={"Add a video"} />
-                                            <IconBtn Icon={IoDocumentText} id={"card-image"} copy={"Add a document"} />
-                                            <IconBtn Icon={HiBriefcase} id={"card-image"} copy={"Share that you're hiring"} />
-                                            <IconBtn Icon={TiChartBar} id={"card-image"} copy={"Create a poll"} />
-                                            <IconBtn Icon={BsCardImage} id={"card-image"} copy={"Add to your post"} />
-                                            <div className="flex items-center px-2 py-1 m-0 ml-2 transition-all cursor-pointer hover:bg-gray-200 rounded-xl">
-                                                <AiOutlineComment className="mr-2 text-gray-500" />
-                                                <span className="text-sm text-gray-600">Anyone</span>
+                                    <form>
+                                        <div className="w-full modal__content">
+                                            <textarea defaultValue={input} onChange={e => setInput(e.target.value)} rows="4" placeholder="What do want to talk about?" className="w-full my-4 text-base font-light tracking-wide text-gray-600 border-0 rounded outline-none focus:border-white focus:outline-white">
+                                            </textarea>
+                                            <div className="inline-block px-2 py-1 transition-colors rounded-md cursor-pointer hover:bg-blue-100">
+                                                <span className="antialiased font-medium tracking-wide text-blue-500">Add hashtag</span>
                                             </div>
                                         </div>
-                                        
-                                        <div className="">
-                                            <button className="px-4 py-1 m-0 text-base tracking-wider text-white bg-blue-500 rounded-2xl">
-                                                Post
-                                            </button>
+
+                                        <div className="flex items-center justify-between w-full pt-4 modal__footer">
+                                            <div className="flex items-center">
+                                                <IconBtn Icon={BsCardImage} id={"card-image"} copy={"Add a photo"} />
+                                                <IconBtn Icon={IoLogoYoutube} id={"card-image"} copy={"Add a video"} />
+                                                <IconBtn Icon={IoDocumentText} id={"card-image"} copy={"Add a document"} />
+                                                <IconBtn Icon={HiBriefcase} id={"card-image"} copy={"Share that you're hiring"} />
+                                                <IconBtn Icon={TiChartBar} id={"card-image"} copy={"Create a poll"} />
+                                                <IconBtn Icon={BsCardImage} id={"card-image"} copy={"Add to your post"} />
+                                                <div className="flex items-center px-2 py-1 m-0 ml-2 transition-all cursor-pointer hover:bg-gray-200 rounded-xl">
+                                                    <AiOutlineComment className="mr-2 text-gray-500" />
+                                                    <span className="text-sm text-gray-600">Anyone</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div className="">
+                                                <button onClick={sendPost} type="submit" className={`px-4 py-1 m-0 text-base tracking-wider rounded-2xl ${(input === '') ? 'text-gray-700 bg-gray-500 pointer-events-none' : 'bg-blue-500 text-white'}`}>
+                                                    Post
+                                                </button>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div> 
                         </Modal>
@@ -114,15 +147,28 @@ function Feed() {
             </div>
             
 
-            {/* {posts.map(post => {
-                <Post />
-            })} */}
+            {(posts.length > 0) 
+                ?
+                
+                posts.map(({ id, data: { name, description, message } }) => (
+                    <Post
+                        key={id}
+                        name={name}
+                        description={description}
+                        message={message}
+                    />
+                ))
+                
+                :
+
+                <h4 className="w-full text-xl text-center text-gray-500">No posts at this time!</h4>
+            }
             
-            <Post
+            {/* <Post
                 name={"Danny Thompson"}
                 description={"Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis, a"}
                 message={"Lorem, ipsum dolor sit amet consectetur adipisicing elit. Harum ipsa minus eum vero iusto! Temporibus doloribus expedita pariatur odit odio commodi quo."}
-            />
+            /> */}
             
         </div>
     );
