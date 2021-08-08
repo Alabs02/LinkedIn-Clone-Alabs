@@ -1,3 +1,5 @@
+[LinkedIn Logo](https://images.unsplash.com/photo-1611944212129-29977ae1398c?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGlua2VkaW4lMjBsb2dvfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)
+<hr />
 # LinkedIn Clone
 A simple LinkedIn Clone build with React, Redux, Firebase and Tailwind CSS
 
