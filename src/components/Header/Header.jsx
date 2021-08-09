@@ -9,8 +9,11 @@ import { HiBriefcase } from 'react-icons/hi'
 import { AiFillMessage } from 'react-icons/ai';
 import { FaBell } from 'react-icons/fa';
 import { GrApps } from 'react-icons/gr';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/user/userSlice';
 
 function Header() {
+  const user = useSelector(selectUser);
   return (
     <div className="flex items-end justify-between px-6 bg-white border header">
         <div className="flex py-2 header__leading">
@@ -34,7 +37,7 @@ function Header() {
 			<HeaderBtn Icon={HiBriefcase} title="Jobs" />
 			<HeaderBtn Icon={AiFillMessage} title="Messaging" />
 			<HeaderBtn Icon={FaBell} title="Notifications" />
-			<HeaderBtn avatar="https://th.bing.com/th/id/OIP.CVqHXuBDNjoG5ZnHJzPC9AHaEK?pid=ImgDet&rs=1" title="Me" />
+			<HeaderBtn avatar={user.photoUrl} title="Me" />
 			
 			<div className="flex items-center pl-2 ml-2 border-l header__actions">
 				<HeaderBtn Icon={GrApps} title="Work" />

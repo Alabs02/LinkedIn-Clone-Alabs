@@ -12,14 +12,14 @@ import { RiSendPlaneFill, RiMoreFill } from 'react-icons/ri';
 import { GrEmoji } from 'react-icons/gr';
 import { BsImage, BsDot } from 'react-icons/bs';
 
-function Post({name, description, message}) {
+function Post({name, description, message, photoUrl}) {
   return (
     <div>
       <div className="p-4 mb-2 bg-white rounded-md card">
         <div className="flex items-start justify-between card__header">
           <div className="flex items-center">
             <div className="m-0 mr-2">
-              <Avatar size={"h-14 w-14 overflow-hidden"} src="https://th.bing.com/th/id/OIP.CVqHXuBDNjoG5ZnHJzPC9AHaEK?pid=ImgDet&rs=1" rounded={true} />
+              <Avatar size={"h-14 w-14 overflow-hidden"} src={photoUrl} rounded={true} />
             </div>
 
             <div>

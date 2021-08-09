@@ -7,8 +7,11 @@ import { BsBookmarkFill } from 'react-icons/bs';
 import { HiUserGroup } from 'react-icons/hi';
 import { IoIosArrowDown } from 'react-icons/io';
 import { GrAdd } from 'react-icons/gr';
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/user/userSlice';
 
 function Sidebar() {
+    const user = useSelector(selectUser);
     return (
         <div>
             <div className="relative w-full overflow-hidden bg-white border rounded-lg shadow-sm card">
@@ -17,24 +20,25 @@ function Sidebar() {
                 </div>
 
                 <div className="absolute card__avatar top-5">
-                    <Avatar size={"h-24 w-24 overflow-hidden border-2 border-white"} src="https://th.bing.com/th/id/OIP.CVqHXuBDNjoG5ZnHJzPC9AHaEK?pid=ImgDet&rs=1" rounded={true} />
+                    <Avatar size={"h-24 w-24 overflow-hidden border-2 border-white"} src={user.photoUrl} rounded={true} />
                 </div>
                 <div className="grid mt-16 card__body place-items-center">
-                    <h5 className="text-lg font-medium text-gray-800 transition-all cursor-pointer card__title hover:underline">Elon Musk</h5>
+                    <h5 className="text-lg font-medium text-gray-800 transition-all cursor-pointer card__title hover:underline">{user.userName}</h5>
                     <p className="px-4 mt-2 mb-4 text-base leading-5 text-center text-gray-500 card__copy">
-                        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Accusantium tenetur distinctio corporis quia libero quas.
+                        {user.email}<br />
+                        One line bio.
                     </p>
                 </div>
 
                 <ul className="py-4 border-t card__section">
                     <li className="flex items-center justify-between w-full px-4 py-1.5 transition-all cursor-pointer hover:bg-gray-100">
                         <span className="text-base tracking-tight text-gray-500">Who viewed your profile</span>
-                        <span className="text-base tracking-tighter text-blue-500">14</span>
+                        <span className="text-base tracking-tighter text-blue-500">0</span>
                     </li>
 
                     <li className="flex items-center justify-between w-full px-4 py-1.5 transition-all cursor-pointer hover:bg-gray-100">
                         <span className="text-base tracking-tight text-gray-500">Views of your post</span>
-                        <span className="text-base tracking-tighter text-blue-500">45</span>
+                        <span className="text-base tracking-tighter text-blue-500">0</span>
                     </li>
                 </ul>
 

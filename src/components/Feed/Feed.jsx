@@ -22,19 +22,27 @@ import { TiChartBar } from 'react-icons/ti';
 import { db } from '../../firebaseConfig';
 import firebase from 'firebase'
 
+// Redux
+import { useSelector } from 'react-redux';
+import { selectUser } from '../../features/user/userSlice';
+
 
 function Feed() {
     const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
     const [isOpen, setIsOpen] = useState(false);
+    const [isFetching, setisFetching] = useState(false);
 
     const ref = React.createRef()
+    const user = useSelector(selectUser);
 
     useEffect(() => {
-        const doc = db.collection('posts');
+        setisFetching(true)
+        const doc = db.collection('posts').orderBy('timestamp', 'desc');
         
         doc.onSnapshot(docSnapshot => {
             console.log('Received data', docSnapshot.docs);
+            setisFetching(false)
             setPosts(docSnapshot.docs.map((doc) => ({
                 id: doc.id,
                 data: doc.data(),
@@ -48,12 +56,18 @@ function Feed() {
         e.preventDefault();
 
         db.collection('posts').add({
-            name: 'Elon Musk',
-            description: 'Celebrating tech',
+            name: user.userName,
+            description:`${user.email} . One line bio.`,
             message: input,
-            photoUrl: ``,
+            photoUrl: user.photoUrl,
             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+        }).then(res => {
+            console.log(res)
+            setIsOpen(false)
+            setInput('') 
+        }).catch(err => {
+            console.error(err)
+        })
     }
     
     return (
@@ -61,7 +75,7 @@ function Feed() {
             <div className="px-4 py-2 overflow-hidden bg-white border rounded-lg panel">
                 <div className="flex items-center w-full mt-1 mb-1 panel__header">
                     <div className="mr-2 panel__avatar">
-                        <Avatar size={"h-12 w-12 overflow-hidden"} src="https://th.bing.com/th/id/OIP.CVqHXuBDNjoG5ZnHJzPC9AHaEK?pid=ImgDet&rs=1" rounded={true} />
+                        <Avatar size={"h-12 w-12 overflow-hidden"} src={user.photoUrl} rounded={true} />
                     </div>
                     <div className="grid search place-items-center">
                         <input onClick={() => setIsOpen(!isOpen)} type="text" readOnly={true} className="w-full px-4 py-3 text-base text-gray-500 border border-gray-400 outline-none cursor-pointer rounded-3xl hover:bg-gray-200 focus:bg-gray-300" placeholder="Start a post" />
@@ -77,7 +91,7 @@ function Feed() {
                                 <div className="px-6 my-4 modal__body">
                                     <div className="flex items-center modal__section">
                                         <div className="m-0 mr-3">
-                                            <Avatar size={"h-12 w-12 overflow-hidden"} src="https://th.bing.com/th/id/OIP.CVqHXuBDNjoG5ZnHJzPC9AHaEK?pid=ImgDet&rs=1" rounded={true} />
+                                            <Avatar size={"h-12 w-12 overflow-hidden"} src={user.photoUrl} rounded={true} />
                                         </div>
                                         
                                         <div className="flex flex-col">
@@ -114,7 +128,7 @@ function Feed() {
                                             </div>
                                             
                                             <div className="">
-                                                <button onClick={sendPost} type="submit" className={`px-4 py-1 m-0 text-base tracking-wider rounded-2xl ${(input === '') ? 'text-gray-700 bg-gray-500 pointer-events-none' : 'bg-blue-500 text-white'}`}>
+                                                <button onClick={sendPost} type="submit" className={`px-4 py-1 m-0 text-base tracking-wider rounded-2xl ${(input === '') ? 'text-gray-400 bg-gray-200 pointer-events-none' : 'bg-blue-500 text-white'}`}>
                                                     Post
                                                 </button>
                                             </div>
@@ -147,21 +161,25 @@ function Feed() {
             </div>
             
 
-            {(posts.length > 0) 
+            {!isFetching ? ((posts.length > 0) 
                 ?
                 
-                posts.map(({ id, data: { name, description, message } }) => (
+                posts.map(({ id, data: { name, description, message, photoUrl } }) => (
                     <Post
                         key={id}
                         name={name}
                         description={description}
                         message={message}
+                        photoUrl={photoUrl}
                     />
                 ))
                 
                 :
 
-                <h4 className="w-full text-xl text-center text-gray-500">No posts at this time!</h4>
+                <h4 className="w-full text-xl text-center text-gray-500">No posts at this time!</h4>)
+
+                :
+                <h4 className="text-base tracking-wider text-center text-gray-500">Fetching...</h4>
             }
             
             {/* <Post
