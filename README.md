@@ -5,6 +5,19 @@
 # LinkedIn Clone
 A simple LinkedIn Clone build with React, Redux, Firebase and Tailwind CSS
 
+## App Screenshots
+
+### `Auth Page`
+<center>
+    <img width="100%" height="100%" src="https://firebasestorage.googleapis.com/v0/b/alaburausmanportfolio.appspot.com/o/screenshots%2FauthScreen.png?alt=media&token=cc235b83-b078-472a-990e-ab9f43efc2d1" alt="auth" />
+</center>
+
+### `Home Page`
+
+<center>
+    <img width="100%" height="100%" src="https://firebasestorage.googleapis.com/v0/b/alaburausmanportfolio.appspot.com/o/screenshots%2FmainPage.png?alt=media&token=f4c48238-3aa2-4c41-bdcc-d847ff4e2ac8" alt="auth" />
+</center>
+
 ## Available Scripts
 
 In the project directory, you can run:
