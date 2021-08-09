@@ -95,7 +95,7 @@ function Feed() {
                                         </div>
                                         
                                         <div className="flex flex-col">
-                                            <h5 className="m-0 text-base antialiased font-medium tracking-wide text-gray-800 capitalize">Elon Musk</h5>
+                                            <h5 className="m-0 text-base antialiased font-medium tracking-wide text-gray-800 capitalize">{user.userName}</h5>
                                             <div className="flex items-center px-4 py-2 text-gray-600 border border-gray-400 cursor-pointer select-none rounded-3xl btn-outline hover:border-gray-600 hover:bg-gray-300">
                                                 <FaGlobeAmericas className="mr-2" size="16px" />
                                                 <span className="mr-2 text-sm antialiased font-medium tracking-wider">Anyone</span>

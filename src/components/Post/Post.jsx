@@ -64,7 +64,7 @@ function Post({name, description, message, photoUrl}) {
         
         <div className="flex w-full card__footer item-center">
           <div className="mr-1 footer__avatar">
-            <Avatar size={"h-10 w-10 overflow-hidden"} src="https://th.bing.com/th/id/OIP.CVqHXuBDNjoG5ZnHJzPC9AHaEK?pid=ImgDet&rs=1" rounded={true} />
+            <Avatar size={"h-10 w-10 overflow-hidden"} src={photoUrl} rounded={true} />
           </div>
           
           <div className="relative search">
